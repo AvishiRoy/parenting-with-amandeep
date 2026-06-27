@@ -7,6 +7,7 @@ if (hamburger) {
   hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("is-active");
     mobileMenu.classList.toggle("is-open");
+    document.body.classList.toggle("menu-open");
   });
 }
 
@@ -56,26 +57,231 @@ const observer = new IntersectionObserver((entries) => {
 
 counters.forEach(counter => observer.observe(counter));
 
-// Testimonials
+// ======================================
+// SUCCESS STORIES TABS
+// ======================================
 
-const track = document.getElementById("testimonialTrack");
+const ssTabs = document.querySelectorAll(".ss-tab");
+const ssPanels = document.querySelectorAll(".ss-panel");
 
-if(track){
+ssTabs.forEach(tab => {
 
-let currentSlide = 0;
+    tab.addEventListener("click", () => {
 
-const slides = document.querySelectorAll(".testimonial-card");
+        ssTabs.forEach(t => t.classList.remove("is-active"));
+        ssPanels.forEach(p => p.classList.remove("is-active"));
 
-setInterval(() => {
-  currentSlide++;
+        tab.classList.add("is-active");
 
-  if(currentSlide >= slides.length){
-    currentSlide = 0;
-  }
+        const panel = document.getElementById("tab-" + tab.dataset.tab);
 
-  track.style.transform =
-    `translateX(-${currentSlide * 100}%)`;
+        if(panel){
+            panel.classList.add("is-active");
+        }
 
-}, 5000);
+    });
+
+});
+
+
+// ======================================
+// LIGHTBOX
+// ======================================
+
+const lightbox = document.getElementById("lightbox");
+const lightboxImg = document.getElementById("lightboxImg");
+const lightboxClose = document.getElementById("lightboxClose");
+const lightboxPrev = document.getElementById("lightboxPrev");
+const lightboxNext = document.getElementById("lightboxNext");
+const lightboxCounter = document.getElementById("lightboxCounter");
+
+let galleryImages = [];
+let currentIndex = 0;
+
+document.querySelectorAll(".photo-grid, .eg-grid").forEach(grid=>{
+
+    const cards = grid.querySelectorAll(".photo-card, .eg-item");
+
+    cards.forEach((card,index)=>{
+
+        card.addEventListener("click", () => {
+
+            galleryImages = [...cards].map(c => {
+
+                const img = c.querySelector("img");
+
+                return {
+
+                    src: img.src,
+                    alt: img.alt
+
+                };
+
+            });
+
+          currentIndex = [...cards].indexOf(card);
+
+          openLightbox();
+
+
+        });
+
+    });
+
+});
+
+function openLightbox(){
+
+    updateImage();
+
+    lightbox.removeAttribute("hidden");
+
+    document.body.style.overflow="hidden";
 
 }
+
+function closeLightbox(){
+
+    lightbox.setAttribute("hidden","");
+
+    document.body.style.overflow="";
+
+}
+
+function updateImage(){
+
+    lightboxImg.src = galleryImages[currentIndex].src;
+    lightboxImg.alt = galleryImages[currentIndex].alt;
+
+    lightboxCounter.textContent =
+    `${currentIndex+1} / ${galleryImages.length}`;
+
+}
+
+lightboxClose?.addEventListener("click",closeLightbox);
+
+lightbox?.addEventListener("click",(e)=>{
+
+    if(e.target===lightbox){
+
+        closeLightbox();
+
+    }
+
+});
+
+lightboxPrev?.addEventListener("click",()=>{
+
+    if(currentIndex>0){
+
+        currentIndex--;
+
+        updateImage();
+
+    }
+
+});
+
+lightboxNext?.addEventListener("click",()=>{
+
+    if(currentIndex<galleryImages.length-1){
+
+        currentIndex++;
+
+        updateImage();
+
+    }
+
+});
+
+document.addEventListener("keydown",(e)=>{
+
+    if(lightbox.hasAttribute("hidden")) return;
+
+    if(e.key==="Escape") closeLightbox();
+
+    if(e.key==="ArrowLeft" && currentIndex>0){
+
+        currentIndex--;
+
+        updateImage();
+
+    }
+
+    if(e.key==="ArrowRight" && currentIndex<galleryImages.length-1){
+
+        currentIndex++;
+
+        updateImage();
+
+    }
+
+});
+
+/* ----------------------------------------------------------------
+   1. JCI STAT COUNTER ANIMATION
+   Counts up to the number in data-jci-count when the card scrolls
+   into view. Uses its own IntersectionObserver instance.
+   The fourth card ("1000s") has no data-jci-count so it is skipped
+   automatically — it keeps its static text.
+---------------------------------------------------------------- */
+(function initJciCounters() {
+  const jciCounterObserver = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+
+        const el     = entry.target;
+        const target = parseInt(el.dataset.jciCount, 10);
+        const suffix = el.dataset.jciSuffix || '';
+
+        if (isNaN(target)) return; // skip the "1000s" card
+
+        const duration = 1400;
+        const startTime = performance.now();
+
+        function step(now) {
+          var elapsed  = now - startTime;
+          var progress = Math.min(elapsed / duration, 1);
+          // Ease-out cubic
+          var eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+        jciCounterObserver.unobserve(el);
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  document.querySelectorAll('[data-jci-count]').forEach(function(el) {
+    jciCounterObserver.observe(el);
+  });
+}());
+
+
+/* ----------------------------------------------------------------
+   2. JCI SCROLL REVEAL OBSERVER
+   Watches all .jci-reveal elements and adds .jci-revealed when
+   they enter the viewport. Separate from the existing revealObserver
+   so there is zero interference with your existing code.
+---------------------------------------------------------------- */
+(function initJciReveal() {
+  var jciRevealObserver = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('jci-revealed');
+          jciRevealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  document.querySelectorAll('.jci-reveal').forEach(function(el) {
+    jciRevealObserver.observe(el);
+  });
+}());
