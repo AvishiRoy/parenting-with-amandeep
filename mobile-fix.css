@@ -1,0 +1,734 @@
+/* ================================================================
+   mobile-fix.css
+   ONE job only: make the site look premium on phones.
+   This file is linked with  media="screen and (max-width: 768px)"
+   so it NEVER affects desktop. Your style.css is untouched.
+   
+   Add ONE line inside <head> in index.html, after the style.css link:
+   <link rel="stylesheet" href="mobile-fix.css" media="screen and (max-width: 768px)" />
+================================================================ */
+
+/* ----------------------------------------------------------------
+   GLOBAL MOBILE RESETS
+   Disable hover animations that feel broken on touch screens.
+   Remove accidental horizontal overflow. Better base font size.
+---------------------------------------------------------------- */
+*, *::before, *::after {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+/* Kill desktop hover transforms on touch — they stick on mobile */
+.service-card:hover,
+.why-item:hover,
+.milestone:hover,
+.review-card:hover,
+.photo-card:hover,
+.accolade-card:hover,
+.jci-stat-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ----------------------------------------------------------------
+   NAVBAR
+   Taller touch target for hamburger. Logo slightly smaller.
+---------------------------------------------------------------- */
+.navbar__inner {
+  height: 64px;
+  padding: 0 1.25rem;
+}
+
+.navbar__logo-text {
+  font-size: 1.1rem;
+}
+
+.hamburger {
+  display: flex;
+  padding: 10px;
+  margin-right: -10px;
+}
+
+.hamburger__bar {
+  width: 22px;
+}
+
+/* ----------------------------------------------------------------
+   HERO SECTION
+   Stack text above image on mobile.
+   Remove the decorative blobs that cause overflow.
+   Make the image a natural portrait, not a cropped square.
+---------------------------------------------------------------- */
+.hero {
+  padding: 5rem 0 3rem;
+}
+
+.hero__blob {
+  display: none;
+}
+
+.hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  text-align: center;
+}
+
+.hero__content {
+  order: 1;
+}
+
+.hero__media {
+  order: 2;
+  justify-content: center;
+}
+
+.hero__title {
+  font-size: 2.2rem;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+.hero__subtitle {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.hero__text {
+  font-size: 0.97rem;
+  margin-bottom: 1.75rem;
+  max-width: 100%;
+  text-align: left;
+}
+
+.hero__actions {
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.hero__actions .btn {
+  flex: 1 1 140px;
+  max-width: 200px;
+  padding: 0.85rem 1.25rem;
+  font-size: 0.9rem;
+}
+
+/* Hero image — natural frame, no overflow-causing decorators */
+.hero__image-frame {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 12px;
+  border-radius: 24px;
+}
+
+.hero__image-frame::before {
+  width: 220px;
+  height: 220px;
+  top: -20px;
+  right: -20px;
+}
+
+.hero__image-frame::after {
+  width: 80px;
+  height: 80px;
+  bottom: 10px;
+  left: -10px;
+}
+
+.hero__media::before {
+  display: none; /* dashed circle causes overflow on small screens */
+}
+
+.hero__image {
+  animation: none; /* float animation is distracting on mobile */
+  border-radius: 16px;
+}
+
+/* The "18+ Years" badge — reposition so it doesn't overflow */
+.hero__badge {
+  position: static;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  margin: 1rem auto 0;
+  width: fit-content;
+}
+
+.hero__badge-number {
+  font-size: 1.4rem;
+}
+
+.hero__badge-label {
+  text-align: left;
+  font-size: 0.7rem;
+}
+
+/* ----------------------------------------------------------------
+   ACHIEVEMENTS / MILESTONES
+   2-column grid. Hide the decorative connecting line.
+---------------------------------------------------------------- */
+.achievements {
+  padding: 3rem 0;
+}
+
+.milestones {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.milestones::before {
+  display: none;
+}
+
+.milestone {
+  padding: 1.5rem 1rem;
+}
+
+.milestone__number {
+  font-size: 1.8rem;
+}
+
+.milestone__label {
+  font-size: 0.82rem;
+}
+
+/* ----------------------------------------------------------------
+   ABOUT SECTION
+   Single column. Image above, text below. Constrain image height.
+---------------------------------------------------------------- */
+.about {
+  padding: 3.5rem 0;
+}
+
+.about__inner {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.about__image-frame {
+  max-width: 300px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 4;
+}
+
+.about__text {
+  font-size: 0.97rem;
+  line-height: 1.75;
+  max-width: 100%;
+}
+
+/* ----------------------------------------------------------------
+   SERVICES
+   Single column on phone. Cards feel wider and easier to read.
+---------------------------------------------------------------- */
+.services {
+  padding: 3.5rem 0;
+}
+
+.services__grid {
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.service-card {
+  padding: 1.5rem;
+  border-radius: 18px;
+}
+
+.service-card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  margin-bottom: 1.1rem;
+}
+
+.service-card__title {
+  font-size: 1.15rem;
+}
+
+/* ----------------------------------------------------------------
+   WHY CHOOSE (dark blue section)
+   Single column, remove heavy hover effects.
+---------------------------------------------------------------- */
+.why-choose {
+  padding: 3.5rem 0;
+}
+
+.why-grid {
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.why-item {
+  padding: 1.5rem;
+  border-radius: 18px;
+}
+
+.why-item__title {
+  font-size: 1.05rem;
+}
+
+/* ----------------------------------------------------------------
+   PUBLIC SPEAKING SECTION
+---------------------------------------------------------------- */
+.public-speaking {
+  padding: 3.5rem 0;
+}
+
+.speaking-hero {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 2rem auto 3rem;
+}
+
+.speaking-hero__image {
+  height: 280px;
+  border-radius: 18px;
+}
+
+.speaking-image {
+  padding: 10px;
+  border-radius: 22px;
+}
+
+.speaking-image::before,
+.speaking-image::after {
+  display: none;
+}
+
+.speaking-hero__content h3 {
+  font-size: 1.75rem;
+  line-height: 1.2;
+  max-width: 100%;
+  text-align: center;
+}
+
+.speaking-hero__content p {
+  font-size: 1rem;
+  max-width: 100%;
+  text-align: center;
+}
+
+.feature-tag {
+  margin: 0 auto 1rem;
+}
+
+.gallery-heading {
+  font-size: 1.8rem;
+  margin-top: 3rem;
+}
+
+.gallery-subtitle {
+  font-size: 0.97rem;
+}
+
+.speaking-gallery {
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.speaking-gallery img {
+  height: 240px;
+  border-radius: 16px;
+}
+
+/* ----------------------------------------------------------------
+   SUCCESS STORIES — Tab section
+   Tabs stack to 2×2 grid, panels readable at full width.
+---------------------------------------------------------------- */
+.success-stories {
+  padding: 3.5rem 0;
+}
+
+.ss-tabs {
+  gap: 0.35rem;
+  margin-bottom: 2rem;
+  justify-content: flex-start;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  padding-bottom: 0;
+  /* subtle scroll hint */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.ss-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.ss-tab {
+  flex-shrink: 0;
+  padding: 0.6rem 1rem;
+  font-size: 0.8rem;
+  border-radius: 8px 8px 0 0;
+  white-space: nowrap;
+}
+
+.ss-tab svg {
+  width: 15px;
+  height: 15px;
+}
+
+.reviews-grid {
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+
+.review-card {
+  padding: 1.5rem;
+}
+
+.photo-grid {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+/* ----------------------------------------------------------------
+   JCI / LEADERSHIP SECTION
+---------------------------------------------------------------- */
+.jci-section {
+  padding: 3.5rem 0;
+}
+
+.jci-timeline {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  overflow-x: visible;
+  margin-bottom: 2.5rem;
+}
+
+.jci-timeline__connector {
+  display: none;
+}
+
+.jci-timeline__item {
+  flex: 0 0 110px;
+  max-width: 120px;
+}
+
+.jci-timeline__icon {
+  width: 54px;
+  height: 54px;
+}
+
+.jci-info-card {
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.4rem;
+  margin-bottom: 2.5rem;
+}
+
+.jci-info-card__text {
+  font-size: 0.94rem;
+}
+
+.jci-stats {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+}
+
+.jci-stat-card {
+  padding: 1.5rem 1rem;
+}
+
+.jci-stat-card__number {
+  font-size: 1.8rem;
+}
+
+/* ----------------------------------------------------------------
+   EVENT GALLERY
+---------------------------------------------------------------- */
+.event-gallery {
+  padding: 3.5rem 0;
+}
+
+.eg-grid {
+  grid-template-columns: 1fr;
+  grid-auto-rows: 220px;
+  gap: 0.9rem;
+}
+
+.eg-item--tall {
+  grid-row: span 1;
+}
+
+/* ----------------------------------------------------------------
+   ACCOLADES / ACHIEVEMENTS CARDS
+---------------------------------------------------------------- */
+.accolades {
+  padding: 3.5rem 0;
+}
+
+.accolades-grid {
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+
+.accolade-card {
+  padding: 1.5rem;
+  border-radius: 16px;
+}
+
+.accolade-card__title {
+  font-size: 1.05rem;
+}
+
+/* ----------------------------------------------------------------
+   CTA SECTION
+---------------------------------------------------------------- */
+.cta {
+  padding: 3.5rem 0;
+}
+
+.cta__title {
+  font-size: 1.7rem;
+}
+
+.cta__text {
+  font-size: 0.97rem;
+}
+
+/* ----------------------------------------------------------------
+   CONTACT SECTION
+   Stack info panel above WhatsApp card.
+   Make form inputs finger-friendly.
+---------------------------------------------------------------- */
+.contact {
+  padding: 3.5rem 0;
+}
+
+.contact__inner {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.contact__whatsapp {
+  padding: 2rem 1.5rem;
+  min-height: auto;
+}
+
+.contact__whatsapp h3 {
+  font-size: 1.5rem;
+}
+
+.contact__whatsapp .btn {
+  width: 100%;
+}
+
+.form-input,
+.form-textarea {
+  font-size: 1rem;    /* prevents iOS zoom-on-focus */
+  padding: 0.9rem 1rem;
+}
+
+.contact__form {
+  padding: 1.5rem;
+  border-radius: 20px;
+}
+
+/* ----------------------------------------------------------------
+   LIGHTBOX on mobile
+   Nav arrows stay reachable. Counter stays readable.
+---------------------------------------------------------------- */
+.lightbox {
+  padding: 1rem 0.5rem;
+}
+
+.lightbox__stage {
+  max-width: 100vw;
+  max-height: 80vh;
+}
+
+.lightbox__img {
+  max-height: 75vh;
+}
+
+.lightbox__nav {
+  width: 40px;
+  height: 40px;
+}
+
+.lightbox__nav--prev { left: 0.4rem; }
+.lightbox__nav--next { right: 0.4rem; }
+
+.lightbox__close {
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 40px;
+  height: 40px;
+}
+
+.lightbox__counter {
+  bottom: 0.75rem;
+  font-size: 0.8rem;
+}
+
+/* ----------------------------------------------------------------
+   FOOTER
+   Single column. Centred. Readable.
+---------------------------------------------------------------- */
+.footer {
+  padding-top: 3rem;
+}
+
+.footer__inner {
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  text-align: center;
+  padding-bottom: 2.5rem;
+}
+
+.footer__tagline {
+  max-width: 100%;
+}
+
+.footer__social .social-icons,
+.social-icons {
+  justify-content: center;
+}
+
+.footer__links ul {
+  align-items: center;
+}
+
+.footer__bottom {
+  font-size: 0.8rem;
+  padding: 1rem 0;
+}
+
+/* ----------------------------------------------------------------
+   BACK TO TOP — bigger touch target
+---------------------------------------------------------------- */
+.back-to-top {
+  width: 44px;
+  height: 44px;
+  bottom: 20px;
+  right: 16px;
+}
+
+/* ----------------------------------------------------------------
+   SECTION HEADINGS
+   Keep them from getting too large on narrow screens.
+---------------------------------------------------------------- */
+.section-title {
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  font-size: 0.97rem;
+  max-width: 100%;
+}
+
+.section-head {
+  margin-bottom: 2.5rem;
+}
+
+/* ----------------------------------------------------------------
+   UTILITY — make all full-width buttons actually full width
+---------------------------------------------------------------- */
+.btn--block-mobile {
+  width: 100%;
+}
+/* ================================================================
+   STEP 2 — APPEND THIS TO THE BOTTOM OF mobile-fix.css
+   Hero section complete mobile overhaul.
+   This fixes the first impression on every client's phone.
+================================================================ */
+
+/* Make the hero stack properly: text on top, image below */
+.hero__inner {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2rem !important;
+  text-align: center !important;
+  padding-top: 1rem;
+}
+
+.hero__content { order: 1 !important; }
+.hero__media   { order: 2 !important; }
+
+/* Hero text sizing — readable but not crushing */
+.hero__title {
+  font-size: 2rem !important;
+  line-height: 1.18 !important;
+}
+
+.hero__subtitle {
+  font-size: 1rem !important;
+  margin-bottom: 0.9rem !important;
+}
+
+.hero__text {
+  font-size: 0.95rem !important;
+  text-align: left !important;
+  max-width: 100% !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Buttons: side by side, equal width, properly sized for thumbs */
+.hero__actions {
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
+  gap: 0.7rem !important;
+}
+
+.hero__actions .btn {
+  flex: 1 !important;
+  padding: 0.85rem 0.75rem !important;
+  font-size: 0.88rem !important;
+  max-width: 170px !important;
+}
+
+/* Hero image: constrained, centered, no overflow */
+.hero__media {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 1rem !important;
+}
+
+.hero__image-frame {
+  max-width: 260px !important;
+  margin: 0 auto !important;
+  padding: 10px !important;
+  border-radius: 20px !important;
+  /* kill the pseudo-elements that bleed offscreen */
+}
+
+.hero__image-frame::before,
+.hero__image-frame::after,
+.hero__media::before {
+  display: none !important;
+}
+
+.hero__image {
+  animation: none !important;  /* float is distracting on mobile */
+  border-radius: 14px !important;
+}
+
+/* Reposition the "18+ Years" badge as a pill BELOW the image */
+.hero__badge {
+  position: static !important;
+  transform: none !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 0.6rem !important;
+  padding: 0.6rem 1.25rem !important;
+  border-radius: 50px !important;
+  margin: 0 auto !important;
+  width: fit-content !important;
+}
+
+.hero__badge-number { font-size: 1.3rem !important; }
+.hero__badge-label  { font-size: 0.68rem !important; text-align: left !important; }
