@@ -2983,8 +2983,6 @@ button,
    website. Fixed bottom-right, always visible, one tap = direct
    WhatsApp conversation with Amandeep.
 
-   HOW TO USE:
-   In your index.html, paste this ONE line just before </body>:
 
    <a href="https://wa.me/919026876543?text=Hello%20Amandeep%20Ma'am,%20I%20would%20like%20to%20book%20a%20consultation."
       class="whatsapp-float"
