@@ -1495,3 +1495,10 @@ body {
     padding-right: 0.9rem !important;
   }
 }
+.floating-whatsapp,
+.whatsapp-widget,
+.joinchat,
+.joinchat--chatbox,
+.wa-widget{
+    display:none !important;
+}
