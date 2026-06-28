@@ -3056,3 +3056,13 @@ button,
     height: 26px;
   }
 }
+/* In style.css — hide mobile accordion elements on desktop */
+.ss-accordion-btn,
+.ss-accordion-content {
+  display: none;
+}
+
+/* Desktop: show content directly since accordion is off */
+.ss-panel.is-active .ss-accordion-content {
+  display: block;
+}

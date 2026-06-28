@@ -926,7 +926,7 @@
           <p class="section-subtitle">Real words from real families — across workshops, WhatsApp, social media and national press.</p>
         </div>
 
-        <!-- Tab Navigation -->
+        <!-- Tab Navigation — DESKTOP ONLY (hidden on mobile via CSS) -->
         <div class="ss-tabs" role="tablist" aria-label="Success stories categories">
           <button class="ss-tab is-active" type="button" role="tab" aria-selected="true"  aria-controls="tab-reviews"  id="btn-reviews"  data-tab="reviews">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9C.7 8.1 2.4 4.8 5.6 4.2c2-.4 3.8.5 4.9 2.1l1.5 2 1.5-2c1.1-1.6 2.9-2.5 4.9-2.1 3.2.6 4.9 3.9 3.3 7.8C19.5 16.4 12 21 12 21z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
@@ -940,211 +940,188 @@
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             Facebook Reviews
           </button>
-          <button class="ss-tab" type="button" role="tab" aria-selected="false" aria-controls="tab-media"    id="btn-media"    data-tab="media">
+          <button class="ss-tab" type="button" role="tab" aria-selected="false" aria-controls="tab-media" id="btn-media" data-tab="media">
             <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18" stroke="currentColor" stroke-width="1.5"/><path d="M7 13h4M7 16h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             Media Coverage
           </button>
         </div>
 
-        <!-- TAB 1 — Parent Reviews -->
+        <!-- =========================================================
+            PANELS — shared by both desktop tabs and mobile accordion
+            Structure: accordion button first, then content wrapper
+        ========================================================== -->
+
+        <!-- PANEL 1 — Parent Reviews -->
         <div class="ss-panel is-active" id="tab-reviews" role="tabpanel" aria-labelledby="btn-reviews">
-          <div class="reviews-grid">
 
-            <article class="review-card">
-              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <blockquote class="review-card__text">
-                "Placeholder review — replace with your real parent feedback. This parent found
-                Amandeep's guidance completely transformed how they communicate with their child
-                at home."
-              </blockquote>
-              <footer class="review-card__author">
-                <span class="review-card__name">Parent Name Here</span>
-                <span class="review-card__location">City, India</span>
-              </footer>
-            </article>
+          <!-- Mobile accordion trigger (hidden on desktop) -->
+          <button class="ss-accordion-btn" aria-expanded="false" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.7-9C.7 8.1 2.4 4.8 5.6 4.2c2-.4 3.8.5 4.9 2.1l1.5 2 1.5-2c1.1-1.6 2.9-2.5 4.9-2.1 3.2.6 4.9 3.9 3.3 7.8C19.5 16.4 12 21 12 21z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            Parent Reviews
+            <span class="ss-accordion-chevron" aria-hidden="true">▾</span>
+          </button>
 
-            <article class="review-card">
-              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <blockquote class="review-card__text">
-                "Placeholder review — replace with your real parent feedback. After attending
-                the workshop, this parent felt equipped with tools they could use immediately
-                with their children."
-              </blockquote>
-              <footer class="review-card__author">
-                <span class="review-card__name">Parent Name Here</span>
-                <span class="review-card__location">City, India</span>
-              </footer>
-            </article>
+          <!-- Content — shown always on desktop, toggled on mobile -->
+          <div class="ss-accordion-content">
+            <div class="reviews-grid">
 
-            <article class="review-card">
-              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <blockquote class="review-card__text">
-                "Placeholder review — replace with your real parent feedback. This parent
-                described the counselling experience as warm, practical and genuinely life-changing
-                for their whole family."
-              </blockquote>
-              <footer class="review-card__author">
-                <span class="review-card__name">Parent Name Here</span>
-                <span class="review-card__location">City, India</span>
-              </footer>
-            </article>
+              <article class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote class="review-card__text">
+                  "Placeholder review — replace with your real parent feedback. This parent found
+                  Amandeep's guidance completely transformed how they communicate with their child
+                  at home."
+                </blockquote>
+                <footer class="review-card__author">
+                  <span class="review-card__name">Parent Name Here</span>
+                  <span class="review-card__location">City, India</span>
+                </footer>
+              </article>
 
+              <article class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote class="review-card__text">
+                  "Placeholder review — replace with your real parent feedback. After attending
+                  the workshop, this parent felt equipped with tools they could use immediately
+                  with their children."
+                </blockquote>
+                <footer class="review-card__author">
+                  <span class="review-card__name">Parent Name Here</span>
+                  <span class="review-card__location">City, India</span>
+                </footer>
+              </article>
+
+              <article class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <blockquote class="review-card__text">
+                  "Placeholder review — replace with your real parent feedback. This parent
+                  described the counselling experience as warm, practical and genuinely life-changing
+                  for their whole family."
+                </blockquote>
+                <footer class="review-card__author">
+                  <span class="review-card__name">Parent Name Here</span>
+                  <span class="review-card__location">City, India</span>
+                </footer>
+              </article>
+
+            </div>
           </div>
         </div>
 
-        <!-- TAB 2 — WhatsApp Feedback -->
-        <div class="ss-panel" id="tab-whatsapp" role="tabpanel" aria-labelledby="btn-whatsapp">
-          <div class="photo-grid" data-lightbox="whatsapp" role="list" aria-label="WhatsApp feedback screenshots">
-            <div class="photo-card" data-index="0" role="listitem button" tabindex="0" aria-label="Open fullscreen: WhatsApp feedback from a parent">
-              <img src="images/whatsapp/amandeepwhatsappreview.jpeg" alt="WhatsApp feedback from a parent" width="720" height="1280" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <!-- PANEL 2 — WhatsApp Feedback -->
+        <div class="ss-panel" id="tab-whatsapp" role="tabpanel" aria-labelledby="btn-whatsapp" hidden>
+
+          <button class="ss-accordion-btn" aria-expanded="false" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.6.1-.2.3-.7.9-.9 1-.2.2-.4.2-.6.1-.9-.4-1.8-1-2.6-1.8-.7-.7-1.3-1.5-1.8-2.4-.1-.2 0-.4.1-.6.2-.2.6-.7.8-.9.1-.2.1-.4 0-.6-.1-.2-.7-1.7-.9-2-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.7.7-1 1.6-1 2.6.1 1.2.6 2.4 1.5 3.5 1.5 1.9 3.3 3.3 5.5 4.2 1 .4 2 .6 3 .5.7-.1 1.4-.5 1.9-1.1.2-.3.3-.6.3-.9 0-.2 0-.5-.2-.6-.2-.1-.4-.2-.7-.1z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M12 21a9 9 0 1 0-7.8-4.5L3 21l4.7-1.2A9 9 0 0 0 12 21z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+            WhatsApp Feedback
+            <span class="ss-accordion-chevron" aria-hidden="true">▾</span>
+          </button>
+
+          <div class="ss-accordion-content">
+            <div class="photo-grid" data-lightbox="whatsapp" role="list" aria-label="WhatsApp feedback screenshots">
+              <div class="photo-card" data-index="0" role="listitem button" tabindex="0" aria-label="Open fullscreen: WhatsApp feedback from a parent">
+                <img src="images/whatsapp/amandeepwhatsappreview.jpeg" alt="WhatsApp feedback from a parent" width="720" height="1280" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+              <div class="photo-card" data-index="1" role="listitem button" tabindex="0" aria-label="Open fullscreen: WhatsApp feedback from a parent">
+                <img src="images/whatsapp/amandeepwhatsappreview2.jpg" alt="WhatsApp feedback from a parent" width="720" height="1280" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
               </div>
             </div>
-            <div class="photo-card" data-index="1" role="listitem button" tabindex="0" aria-label="Open fullscreen: WhatsApp feedback from a parent">
-              <img src="images/whatsapp/amandeepwhatsappreview2.jpg" alt="WhatsApp feedback from a parent" width="720" height="1280" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <!-- <div class="photo-card" data-index="2">
-              <img src="images/whatsapp/chat3.jpg" alt="WhatsApp feedback from a parent" loading="lazy" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card" data-index="3">
-              <img src="images/whatsapp/chat4.jpg" alt="WhatsApp feedback from a parent" loading="lazy" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card" data-index="4">
-              <img src="images/whatsapp/chat5.jpg" alt="WhatsApp feedback from a parent" loading="lazy" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card" data-index="5">
-              <img src="images/whatsapp/chat6.jpg" alt="WhatsApp feedback from a parent" loading="lazy" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div> -->
           </div>
         </div>
 
-        <!-- TAB 3 — Facebook Reviews -->
-        <div class="ss-panel" id="tab-facebook" role="tabpanel" aria-labelledby="btn-facebook">
-          <div class="photo-grid" data-lightbox="facebook" role="list" aria-label="Facebook review screenshots">
-            <div class="photo-card" data-index="0" role="listitem button" tabindex="0" aria-label="Open fullscreen: Facebook review from a parent">
-              <img src="images/facebook/amandeepfacebookreview.jpg" alt="Facebook review from a parent" width="720" height="1280" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <!-- PANEL 3 — Facebook Reviews -->
+        <div class="ss-panel" id="tab-facebook" role="tabpanel" aria-labelledby="btn-facebook" hidden>
+
+          <button class="ss-accordion-btn" aria-expanded="false" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            Facebook Reviews
+            <span class="ss-accordion-chevron" aria-hidden="true">▾</span>
+          </button>
+
+          <div class="ss-accordion-content">
+            <div class="photo-grid" data-lightbox="facebook" role="list" aria-label="Facebook review screenshots">
+              <div class="photo-card" data-index="0" role="listitem button" tabindex="0" aria-label="Open fullscreen: Facebook review from a parent">
+                <img src="images/facebook/amandeepfacebookreview.jpg" alt="Facebook review from a parent" width="720" height="1280" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+              </div>
+              <div class="photo-card" data-index="1" role="listitem button" tabindex="0" aria-label="Open fullscreen: Facebook review from a parent">
+                <img src="images/facebook/amandeepfacebookreview2.jpg" alt="Facebook review from a parent" width="720" height="1280" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
               </div>
             </div>
-            <div class="photo-card" data-index="1" role="listitem button" tabindex="0" aria-label="Open fullscreen: Facebook review from a parent">
-              <img src="images/facebook/amandeepfacebookreview2.jpg" alt="Facebook review from a parent" width="720" height="1280" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <!-- <div class="photo-card" data-index="2">
-              <img src="images/facebook/review3.jpg" alt="Facebook review from a parent" loading="lazy" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card" data-index="3">
-              <img src="images/facebook/review4.jpg" alt="Facebook review from a parent" loading="lazy" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div> -->
           </div>
         </div>
 
-        <!-- TAB 4 — Media Coverage -->
-        <div class="ss-panel" id="tab-media" role="tabpanel" aria-labelledby="btn-media">
-          <div class="photo-grid photo-grid--media" data-lightbox="media" role="list" aria-label="Media coverage clippings">
-            <div class="photo-card photo-card--media" data-index="0" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview.jpeg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <!-- PANEL 4 — Media Coverage -->
+        <div class="ss-panel" id="tab-media" role="tabpanel" aria-labelledby="btn-media" hidden>
+
+          <button class="ss-accordion-btn" aria-expanded="false" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h18" stroke="currentColor" stroke-width="1.5"/><path d="M7 13h4M7 16h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Media Coverage
+            <span class="ss-accordion-chevron" aria-hidden="true">▾</span>
+          </button>
+
+          <div class="ss-accordion-content">
+            <div class="photo-grid photo-grid--media" data-lightbox="media" role="list" aria-label="Media coverage clippings">
+              <div class="photo-card photo-card--media" data-index="0" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview.jpeg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="1" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview2.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="2" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview3.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="3" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview4.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="4" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview5.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="5" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview6.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="6" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview7.JPG" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="7" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview8.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="8" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview9.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="9" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview10.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="10" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview11.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+              <div class="photo-card photo-card--media" data-index="11" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
+                <img src="images/media/amandeepnewspaperreview12.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
+                <div class="photo-card__overlay" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
               </div>
             </div>
-            <div class="photo-card photo-card--media" data-index="1" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview2.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="2" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview3.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="3" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview4.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="4" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview5.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="5" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview6.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="6" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview7.JPG" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="7" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview8.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="8" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview9.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="9" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview10.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="10" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview11.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <div class="photo-card photo-card--media" data-index="11" role="listitem button" tabindex="0" aria-label="Open fullscreen: Media coverage, newspaper feature">
-              <img src="images/media/amandeepnewspaperreview12.jpg" alt="Media coverage — newspaper feature" width="900" height="1200" loading="lazy" decoding="async" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-            <!-- <div class="photo-card photo-card--media" data-index="12">
-              <img src="images/media/amandeepnewspaperreview13.jpg" alt="Media coverage — newspaper feature" loading="lazy" />
-              <div class="photo-card__overlay" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div> -->
           </div>
         </div>
 

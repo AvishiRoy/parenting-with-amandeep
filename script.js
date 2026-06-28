@@ -285,3 +285,42 @@ document.addEventListener("keydown",(e)=>{
     jciRevealObserver.observe(el);
   });
 }());
+
+// ======================================
+// MOBILE ACCORDION — Success Stories
+// Runs only on screens 768px and below
+// ======================================
+(function initMobileAccordion() {
+  if (window.innerWidth > 768) return;
+
+  const accordionBtns = document.querySelectorAll('.ss-accordion-btn');
+
+  // On mobile: show all panels (remove hidden attr), hide content inside them
+  document.querySelectorAll('.ss-panel').forEach(function(panel) {
+    panel.removeAttribute('hidden');
+  });
+
+  accordionBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const panel = btn.closest('.ss-panel');
+      const isOpen = panel.classList.contains('accordion-open');
+
+      // Close all
+      document.querySelectorAll('.ss-panel').forEach(function(p) {
+        p.classList.remove('accordion-open');
+        const b = p.querySelector('.ss-accordion-btn');
+        if (b) b.setAttribute('aria-expanded', 'false');
+      });
+
+      // Open this one if it was closed
+      if (!isOpen) {
+        panel.classList.add('accordion-open');
+        btn.setAttribute('aria-expanded', 'true');
+        // Smooth scroll to it
+        setTimeout(function() {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 50);
+      }
+    });
+  });
+}());

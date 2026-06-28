@@ -1,734 +1,1332 @@
 /* ================================================================
-   mobile-fix.css
-   ONE job only: make the site look premium on phones.
-   This file is linked with  media="screen and (max-width: 768px)"
-   so it NEVER affects desktop. Your style.css is untouched.
+   mobile-fix.css  ·  Parenting With Amandeep  ·  v3 PREMIUM
+   Applied via: <link media="screen and (max-width: 768px)">
    
-   Add ONE line inside <head> in index.html, after the style.css link:
-   <link rel="stylesheet" href="mobile-fix.css" media="screen and (max-width: 768px)" />
+   DESIGNER BRIEF:
+   This site currently looks like a Word document on mobile —
+   single-column everything, enormous cards, wasted space.
+   
+   Goal: Make it feel like Apple.com or Notion.so on a phone.
+   Dense. Proportional. Luxury. NOT an accordion of single cards.
+   
+   Strategy: Use high-specificity selectors and !important only
+   where the desktop CSS is overriding us. Every grid stays
+   multi-column wherever the viewport allows.
 ================================================================ */
 
 /* ----------------------------------------------------------------
-   GLOBAL MOBILE RESETS
-   Disable hover animations that feel broken on touch screens.
-   Remove accidental horizontal overflow. Better base font size.
+   0. GLOBAL FOUNDATION
 ---------------------------------------------------------------- */
 *, *::before, *::after {
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 68px;
 }
 
 body {
-  overflow-x: hidden;
-  font-size: 16px;
+  overflow-x: hidden !important;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Kill desktop hover transforms on touch — they stick on mobile */
-.service-card:hover,
-.why-item:hover,
-.milestone:hover,
-.review-card:hover,
-.photo-card:hover,
-.accolade-card:hover,
-.jci-stat-card:hover {
-  transform: none;
-  box-shadow: none;
+/* Global type scale — add to top of mobile-fix.css after base resets */
+.eyebrow {
+  font-size: 0.74rem !important;
+  letter-spacing: 0.1em !important;
+  margin-bottom: 0.4rem !important;
 }
 
-/* ----------------------------------------------------------------
-   NAVBAR
-   Taller touch target for hamburger. Logo slightly smaller.
----------------------------------------------------------------- */
-.navbar__inner {
-  height: 64px;
-  padding: 0 1.25rem;
-}
-
-.navbar__logo-text {
-  font-size: 1.1rem;
-}
-
-.hamburger {
-  display: flex;
-  padding: 10px;
-  margin-right: -10px;
-}
-
-.hamburger__bar {
-  width: 22px;
-}
-
-/* ----------------------------------------------------------------
-   HERO SECTION
-   Stack text above image on mobile.
-   Remove the decorative blobs that cause overflow.
-   Make the image a natural portrait, not a cropped square.
----------------------------------------------------------------- */
-.hero {
-  padding: 5rem 0 3rem;
-}
-
-.hero__blob {
-  display: none;
-}
-
-.hero__inner {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  text-align: center;
-}
-
-.hero__content {
-  order: 1;
-}
-
-.hero__media {
-  order: 2;
-  justify-content: center;
-}
-
-.hero__title {
-  font-size: 2.2rem;
-  line-height: 1.15;
-  margin-bottom: 0.75rem;
-}
-
-.hero__subtitle {
-  font-size: 1.05rem;
-  margin-bottom: 1rem;
-}
-
-.hero__text {
-  font-size: 0.97rem;
-  margin-bottom: 1.75rem;
-  max-width: 100%;
-  text-align: left;
-}
-
-.hero__actions {
-  justify-content: center;
-  gap: 0.75rem;
-}
-
-.hero__actions .btn {
-  flex: 1 1 140px;
-  max-width: 200px;
-  padding: 0.85rem 1.25rem;
-  font-size: 0.9rem;
-}
-
-/* Hero image — natural frame, no overflow-causing decorators */
-.hero__image-frame {
-  max-width: 300px;
-  margin: 0 auto;
-  padding: 12px;
-  border-radius: 24px;
-}
-
-.hero__image-frame::before {
-  width: 220px;
-  height: 220px;
-  top: -20px;
-  right: -20px;
-}
-
-.hero__image-frame::after {
-  width: 80px;
-  height: 80px;
-  bottom: 10px;
-  left: -10px;
-}
-
-.hero__media::before {
-  display: none; /* dashed circle causes overflow on small screens */
-}
-
-.hero__image {
-  animation: none; /* float animation is distracting on mobile */
-  border-radius: 16px;
-}
-
-/* The "18+ Years" badge — reposition so it doesn't overflow */
-.hero__badge {
-  position: static;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  border-radius: 50px;
-  margin: 1rem auto 0;
-  width: fit-content;
-}
-
-.hero__badge-number {
-  font-size: 1.4rem;
-}
-
-.hero__badge-label {
-  text-align: left;
-  font-size: 0.7rem;
-}
-
-/* ----------------------------------------------------------------
-   ACHIEVEMENTS / MILESTONES
-   2-column grid. Hide the decorative connecting line.
----------------------------------------------------------------- */
-.achievements {
-  padding: 3rem 0;
-}
-
-.milestones {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-}
-
-.milestones::before {
-  display: none;
-}
-
-.milestone {
-  padding: 1.5rem 1rem;
-}
-
-.milestone__number {
-  font-size: 1.8rem;
-}
-
-.milestone__label {
-  font-size: 0.82rem;
-}
-
-/* ----------------------------------------------------------------
-   ABOUT SECTION
-   Single column. Image above, text below. Constrain image height.
----------------------------------------------------------------- */
-.about {
-  padding: 3.5rem 0;
-}
-
-.about__inner {
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-.about__image-frame {
-  max-width: 300px;
-  margin: 0 auto;
-  aspect-ratio: 3 / 4;
-}
-
-.about__text {
-  font-size: 0.97rem;
-  line-height: 1.75;
-  max-width: 100%;
-}
-
-/* ----------------------------------------------------------------
-   SERVICES
-   Single column on phone. Cards feel wider and easier to read.
----------------------------------------------------------------- */
-.services {
-  padding: 3.5rem 0;
-}
-
-.services__grid {
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-}
-
-.service-card {
-  padding: 1.5rem;
-  border-radius: 18px;
-}
-
-.service-card__icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  margin-bottom: 1.1rem;
-}
-
-.service-card__title {
-  font-size: 1.15rem;
-}
-
-/* ----------------------------------------------------------------
-   WHY CHOOSE (dark blue section)
-   Single column, remove heavy hover effects.
----------------------------------------------------------------- */
-.why-choose {
-  padding: 3.5rem 0;
-}
-
-.why-grid {
-  grid-template-columns: 1fr;
-  gap: 1rem;
-}
-
-.why-item {
-  padding: 1.5rem;
-  border-radius: 18px;
-}
-
-.why-item__title {
-  font-size: 1.05rem;
-}
-
-/* ----------------------------------------------------------------
-   PUBLIC SPEAKING SECTION
----------------------------------------------------------------- */
-.public-speaking {
-  padding: 3.5rem 0;
-}
-
-.speaking-hero {
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  margin: 2rem auto 3rem;
-}
-
-.speaking-hero__image {
-  height: 280px;
-  border-radius: 18px;
-}
-
-.speaking-image {
-  padding: 10px;
-  border-radius: 22px;
-}
-
-.speaking-image::before,
-.speaking-image::after {
-  display: none;
-}
-
-.speaking-hero__content h3 {
-  font-size: 1.75rem;
-  line-height: 1.2;
-  max-width: 100%;
-  text-align: center;
-}
-
-.speaking-hero__content p {
-  font-size: 1rem;
-  max-width: 100%;
-  text-align: center;
-}
-
-.feature-tag {
-  margin: 0 auto 1rem;
-}
-
-.gallery-heading {
-  font-size: 1.8rem;
-  margin-top: 3rem;
-}
-
-.gallery-subtitle {
-  font-size: 0.97rem;
-}
-
-.speaking-gallery {
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-  margin-top: 2rem;
-}
-
-.speaking-gallery img {
-  height: 240px;
-  border-radius: 16px;
-}
-
-/* ----------------------------------------------------------------
-   SUCCESS STORIES — Tab section
-   Tabs stack to 2×2 grid, panels readable at full width.
----------------------------------------------------------------- */
-.success-stories {
-  padding: 3.5rem 0;
-}
-
-.ss-tabs {
-  gap: 0.35rem;
-  margin-bottom: 2rem;
-  justify-content: flex-start;
-  overflow-x: auto;
-  flex-wrap: nowrap;
-  padding-bottom: 0;
-  /* subtle scroll hint */
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-
-.ss-tabs::-webkit-scrollbar {
-  display: none;
-}
-
-.ss-tab {
-  flex-shrink: 0;
-  padding: 0.6rem 1rem;
-  font-size: 0.8rem;
-  border-radius: 8px 8px 0 0;
-  white-space: nowrap;
-}
-
-.ss-tab svg {
-  width: 15px;
-  height: 15px;
-}
-
-.reviews-grid {
-  grid-template-columns: 1fr;
-  gap: 1.1rem;
-}
-
-.review-card {
-  padding: 1.5rem;
-}
-
-.photo-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-/* ----------------------------------------------------------------
-   JCI / LEADERSHIP SECTION
----------------------------------------------------------------- */
-.jci-section {
-  padding: 3.5rem 0;
-}
-
-.jci-timeline {
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  overflow-x: visible;
-  margin-bottom: 2.5rem;
-}
-
-.jci-timeline__connector {
-  display: none;
-}
-
-.jci-timeline__item {
-  flex: 0 0 110px;
-  max-width: 120px;
-}
-
-.jci-timeline__icon {
-  width: 54px;
-  height: 54px;
-}
-
-.jci-info-card {
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1.4rem;
-  margin-bottom: 2.5rem;
-}
-
-.jci-info-card__text {
-  font-size: 0.94rem;
-}
-
-.jci-stats {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.9rem;
-}
-
-.jci-stat-card {
-  padding: 1.5rem 1rem;
-}
-
-.jci-stat-card__number {
-  font-size: 1.8rem;
-}
-
-/* ----------------------------------------------------------------
-   EVENT GALLERY
----------------------------------------------------------------- */
-.event-gallery {
-  padding: 3.5rem 0;
-}
-
-.eg-grid {
-  grid-template-columns: 1fr;
-  grid-auto-rows: 220px;
-  gap: 0.9rem;
-}
-
-.eg-item--tall {
-  grid-row: span 1;
-}
-
-/* ----------------------------------------------------------------
-   ACCOLADES / ACHIEVEMENTS CARDS
----------------------------------------------------------------- */
-.accolades {
-  padding: 3.5rem 0;
-}
-
-.accolades-grid {
-  grid-template-columns: 1fr;
-  gap: 1.1rem;
-}
-
-.accolade-card {
-  padding: 1.5rem;
-  border-radius: 16px;
-}
-
-.accolade-card__title {
-  font-size: 1.05rem;
-}
-
-/* ----------------------------------------------------------------
-   CTA SECTION
----------------------------------------------------------------- */
-.cta {
-  padding: 3.5rem 0;
-}
-
-.cta__title {
-  font-size: 1.7rem;
-}
-
-.cta__text {
-  font-size: 0.97rem;
-}
-
-/* ----------------------------------------------------------------
-   CONTACT SECTION
-   Stack info panel above WhatsApp card.
-   Make form inputs finger-friendly.
----------------------------------------------------------------- */
-.contact {
-  padding: 3.5rem 0;
-}
-
-.contact__inner {
-  grid-template-columns: 1fr;
-  gap: 2rem;
-}
-
-.contact__whatsapp {
-  padding: 2rem 1.5rem;
-  min-height: auto;
-}
-
-.contact__whatsapp h3 {
-  font-size: 1.5rem;
-}
-
-.contact__whatsapp .btn {
-  width: 100%;
-}
-
-.form-input,
-.form-textarea {
-  font-size: 1rem;    /* prevents iOS zoom-on-focus */
-  padding: 0.9rem 1rem;
-}
-
-.contact__form {
-  padding: 1.5rem;
-  border-radius: 20px;
-}
-
-/* ----------------------------------------------------------------
-   LIGHTBOX on mobile
-   Nav arrows stay reachable. Counter stays readable.
----------------------------------------------------------------- */
-.lightbox {
-  padding: 1rem 0.5rem;
-}
-
-.lightbox__stage {
-  max-width: 100vw;
-  max-height: 80vh;
-}
-
-.lightbox__img {
-  max-height: 75vh;
-}
-
-.lightbox__nav {
-  width: 40px;
-  height: 40px;
-}
-
-.lightbox__nav--prev { left: 0.4rem; }
-.lightbox__nav--next { right: 0.4rem; }
-
-.lightbox__close {
-  top: 0.75rem;
-  right: 0.75rem;
-  width: 40px;
-  height: 40px;
-}
-
-.lightbox__counter {
-  bottom: 0.75rem;
-  font-size: 0.8rem;
-}
-
-/* ----------------------------------------------------------------
-   FOOTER
-   Single column. Centred. Readable.
----------------------------------------------------------------- */
-.footer {
-  padding-top: 3rem;
-}
-
-.footer__inner {
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  text-align: center;
-  padding-bottom: 2.5rem;
-}
-
-.footer__tagline {
-  max-width: 100%;
-}
-
-.footer__social .social-icons,
-.social-icons {
-  justify-content: center;
-}
-
-.footer__links ul {
-  align-items: center;
-}
-
-.footer__bottom {
-  font-size: 0.8rem;
-  padding: 1rem 0;
-}
-
-/* ----------------------------------------------------------------
-   BACK TO TOP — bigger touch target
----------------------------------------------------------------- */
-.back-to-top {
-  width: 44px;
-  height: 44px;
-  bottom: 20px;
-  right: 16px;
-}
-
-/* ----------------------------------------------------------------
-   SECTION HEADINGS
-   Keep them from getting too large on narrow screens.
----------------------------------------------------------------- */
 .section-title {
-  font-size: 1.9rem;
-  line-height: 1.2;
+  font-size: 1.85rem !important;
+  line-height: 1.18 !important;
+  margin-bottom: 0.6rem !important;
 }
 
 .section-subtitle {
-  font-size: 0.97rem;
-  max-width: 100%;
+  font-size: 0.94rem !important;
+  line-height: 1.72 !important;
+  max-width: 100% !important;
 }
 
 .section-head {
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem !important;
+}
+/* ----------------------------------------------------------------
+   1. NAVBAR — compact, still full-width
+---------------------------------------------------------------- */
+.navbar__inner {
+  height: 62px !important;
+  padding: 0 1.1rem !important;
+}
+
+.navbar__logo-text {
+  font-size: clamp(0.88rem, 3.8vw, 1.05rem) !important;
+  white-space: nowrap !important;
+}
+
+.hamburger {
+  padding: 10px !important;
+  margin-right: -8px !important;
+  flex-shrink: 0 !important;
 }
 
 /* ----------------------------------------------------------------
-   UTILITY — make all full-width buttons actually full width
+   2. HERO — THE MOST IMPORTANT SECTION
+   
+   Current broken state: text stacked → buttons stacked →
+   giant image → badge floating below.
+   
+   Fixed: Two-column side-by-side like desktop, just smaller.
+   Text left, image right. Badge tucked into image frame.
+   Below 440px stack once, tastefully.
 ---------------------------------------------------------------- */
-.btn--block-mobile {
-  width: 100%;
+/* Complete hero mobile overhaul */
+.hero {
+  padding: 3.5rem 0 2.5rem !important;
 }
-/* ================================================================
-   STEP 2 — APPEND THIS TO THE BOTTOM OF mobile-fix.css
-   Hero section complete mobile overhaul.
-   This fixes the first impression on every client's phone.
-================================================================ */
 
-/* Make the hero stack properly: text on top, image below */
 .hero__inner {
   display: flex !important;
   flex-direction: column !important;
-  gap: 2rem !important;
+  align-items: center !important;
   text-align: center !important;
-  padding-top: 1rem;
+  gap: 1.5rem !important;
+  grid-template-columns: unset !important;
 }
 
-.hero__content { order: 1 !important; }
-.hero__media   { order: 2 !important; }
-
-/* Hero text sizing — readable but not crushing */
-.hero__title {
-  font-size: 2rem !important;
-  line-height: 1.18 !important;
-}
-
-.hero__subtitle {
-  font-size: 1rem !important;
-  margin-bottom: 0.9rem !important;
-}
-
-.hero__text {
-  font-size: 0.95rem !important;
-  text-align: left !important;
-  max-width: 100% !important;
-  margin-bottom: 1.5rem !important;
-}
-
-/* Buttons: side by side, equal width, properly sized for thumbs */
-.hero__actions {
-  justify-content: center !important;
-  flex-wrap: nowrap !important;
-  gap: 0.7rem !important;
-}
-
-.hero__actions .btn {
-  flex: 1 !important;
-  padding: 0.85rem 0.75rem !important;
-  font-size: 0.88rem !important;
-  max-width: 170px !important;
-}
-
-/* Hero image: constrained, centered, no overflow */
+/* Image comes FIRST visually */
 .hero__media {
+  order: 1 !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 1rem !important;
+  gap: 0.75rem !important;
+  width: 100% !important;
 }
 
+.hero__content {
+  order: 2 !important;
+  width: 100% !important;
+}
+
+/* Compact portrait — premium proportions */
 .hero__image-frame {
-  max-width: 260px !important;
+  width: 190px !important;
+  max-width: 190px !important;
+  height: 190px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 50% !important;
+  border-width: 4px !important;
   margin: 0 auto !important;
-  padding: 10px !important;
-  border-radius: 20px !important;
-  /* kill the pseudo-elements that bleed offscreen */
 }
 
-.hero__image-frame::before,
-.hero__image-frame::after,
-.hero__media::before {
-  display: none !important;
-}
-
-.hero__image {
-  animation: none !important;  /* float is distracting on mobile */
-  border-radius: 14px !important;
-}
-
-/* Reposition the "18+ Years" badge as a pill BELOW the image */
+/* Badge as inline pill BELOW the circular image */
 .hero__badge {
   position: static !important;
   transform: none !important;
   display: inline-flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  gap: 0.6rem !important;
-  padding: 0.6rem 1.25rem !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  padding: 0.5rem 1.1rem !important;
   border-radius: 50px !important;
   margin: 0 auto !important;
   width: fit-content !important;
+  min-width: unset !important;
+  left: unset !important;
+  bottom: unset !important;
 }
 
-.hero__badge-number { font-size: 1.3rem !important; }
-.hero__badge-label  { font-size: 0.68rem !important; text-align: left !important; }
+.hero__badge-number {
+  font-size: 1.35rem !important;
+  line-height: 1 !important;
+}
+
+.hero__badge-label {
+  font-size: 0.63rem !important;
+  text-align: left !important;
+  line-height: 1.3 !important;
+}
+
+/* Typography — premium scale */
+.hero__title {
+  font-size: 1.85rem !important;
+  line-height: 1.18 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.hero__subtitle {
+  font-size: 0.97rem !important;
+  line-height: 1.45 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.hero__text {
+  font-size: 0.91rem !important;
+  line-height: 1.72 !important;
+  margin-bottom: 1.25rem !important;
+  text-align: left !important;
+  display: block !important;
+  overflow: visible !important;
+  -webkit-line-clamp: unset !important;
+  max-width: 100% !important;
+}
+
+/* Buttons: side by side, centred */
+.hero__actions {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 0.65rem !important;
+}
+
+.hero__actions .btn {
+  flex: 0 1 auto !important;
+  font-size: 0.88rem !important;
+  padding: 0.72rem 1.3rem !important;
+  white-space: nowrap !important;
+  max-width: none !important;
+}
+
+@media screen and (max-width: 480px) {
+  .hero__inner {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 2rem !important;
+  }
+  .hero__text {
+    text-align: left !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+  .hero__image-frame {
+    max-width: 240px !important;
+    margin: 0 auto !important;
+  }
+  .hero__badge {
+    position: static !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    border-radius: 50px !important;
+    margin: 0.75rem auto 0 !important;
+    width: fit-content !important;
+  }
+  .hero__badge-label { text-align: left !important; }
+  .hero__actions { justify-content: center !important; }
+  .hero__actions .btn { flex: 0 1 auto !important; max-width: 180px !important; }
+}
+
+
+
+
+
+/* ----------------------------------------------------------------
+   3. WAVE DIVIDERS — keep, just shrink height
+---------------------------------------------------------------- */
+.wave-divider {
+  height: 36px !important;
+  overflow: hidden !important;
+}
+
+/* ----------------------------------------------------------------
+   4. GLOBAL SECTION SPACING
+   Every section gets tighter vertical padding.
+   This alone eliminates most of the "giant empty space" problem.
+---------------------------------------------------------------- */
+.hero,
+.achievements,
+.about,
+.services,
+.why-choose,
+.jci-section,
+.event-gallery,
+.accolades,
+.certificates,
+.success-stories,
+.cta,
+.contact,
+.public-speaking {
+  padding-top: 3.25rem !important;
+  padding-bottom: 3.25rem !important;
+}
+
+/* CTA section slightly tighter — it's a single focal block */
+.cta {
+  padding-top: 2.75rem !important;
+  padding-bottom: 2.75rem !important;
+}
+
+/* ----------------------------------------------------------------
+   5. ACHIEVEMENTS — ALL 4 STATS IN ONE ROW
+   Current broken: 2×2 (still too big, too much padding)
+   Fixed: tight 4-column row, compact cards
+---------------------------------------------------------------- */
+/* .milestones {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 0.55rem !important;
+}
+
+.milestones::before {
+  display: none !important;
+}
+
+.milestone {
+  padding: 1rem 0.4rem 0.85rem !important;
+  border-radius: 12px !important;
+  gap: 0.25rem !important;
+}
+
+.milestone__icon {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.milestone__icon svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.milestone__number {
+  font-size: 1.4rem !important;
+}
+
+.milestone__label {
+  font-size: 0.68rem !important;
+  line-height: 1.2 !important;
+} */
+
+/* 2×2 only below 380px where 4 truly can't fit */
+/* @media screen and (max-width: 380px) {
+  .milestones {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+  }
+
+  .milestone {
+    padding: 1.1rem 0.75rem !important;
+  }
+
+  .milestone__number {
+    font-size: 1.6rem !important;
+  }
+} */
+
+/* ----------------------------------------------------------------
+   6. ABOUT — TWO-COLUMN LAYOUT PRESERVED
+   Current broken: full-width image → all text below
+   Fixed: image left (smaller), text right
+---------------------------------------------------------------- */
+/* REPLACE existing about__inner block */
+.about__inner {
+  grid-template-columns: 1fr !important;
+  gap: 2rem !important;
+}
+
+.about__image-frame {
+  max-width: 320px !important;
+  margin: 0 auto !important;
+  aspect-ratio: 3 / 4 !important;
+  border-radius: 20px !important;
+}
+
+.about__text {
+  font-size: 0.95rem !important;
+  line-height: 1.75 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.about__highlights {
+  margin-top: 1rem !important;
+  gap: 0.6rem !important;
+}
+
+.about__highlights li {
+  font-size: 0.92rem !important;
+}
+
+.check {
+  width: 20px !important;
+  height: 20px !important;
+  font-size: 0.68rem !important;
+}
+
+/* Stack about only below 440px */
+@media screen and (max-width: 440px) {
+  .about__inner {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .about__image-frame {
+    max-width: 240px !important;
+    margin: 0 auto !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   7. SERVICES — 2×3 GRID (2 cards per row)
+   Current broken: 1 card per row — 6 giant blocks
+   Fixed: 2 columns, compact cards
+---------------------------------------------------------------- */
+/* REPLACE existing services__grid block */
+.services__grid {
+  grid-template-columns: 1fr !important;
+  gap: 0.9rem !important;
+}
+
+.service-card {
+  display: grid !important;
+  grid-template-columns: 48px 1fr !important;
+  grid-template-rows: auto auto !important;
+  column-gap: 1rem !important;
+  row-gap: 0.2rem !important;
+  padding: 1.1rem 1.15rem !important;
+  border-radius: 14px !important;
+  align-items: start !important;
+}
+
+.service-card__icon {
+  grid-column: 1 !important;
+  grid-row: 1 / 3 !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 12px !important;
+  margin-bottom: 0 !important;
+  align-self: center !important;
+}
+
+.service-card__icon svg {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+.service-card__title {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  font-size: 1rem !important;
+  margin-bottom: 0 !important;
+  align-self: end !important;
+}
+
+.service-card__text {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  font-size: 0.87rem !important;
+  line-height: 1.55 !important;
+}
+
+/* ----------------------------------------------------------------
+   8. WHY CHOOSE — 2×2 GRID, NOT SINGLE COLUMN
+   Current broken: 4 giant single-column cards
+   Fixed: 2×2 grid, tight cards
+---------------------------------------------------------------- */
+/* REPLACE existing why-grid block */
+.why-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0.75rem !important;
+}
+
+.why-item {
+  padding: 1.35rem 1.1rem !important;
+  border-radius: 14px !important;
+}
+
+.why-item__icon {
+  width: 42px !important;
+  height: 42px !important;
+  margin-bottom: 0.7rem !important;
+}
+
+.why-item__icon svg {
+  width: 19px !important;
+  height: 19px !important;
+}
+
+.why-item__title {
+  font-size: 0.95rem !important;
+  margin-bottom: 0.3rem !important;
+}
+
+.why-item__text {
+  font-size: 0.84rem !important;
+  line-height: 1.55 !important;
+}
+
+/* ----------------------------------------------------------------
+   9. JCI TIMELINE — HORIZONTAL SCROLLABLE STRIP
+   Current broken: wraps to 2×3 grid of centered items
+   Fixed: single horizontal scrolling row with connectors
+---------------------------------------------------------------- */
+/* REPLACE jci-timeline block */
+.jci-timeline {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  gap: 1.5rem 1rem !important;
+  overflow-x: visible !important;
+  margin-bottom: 2rem !important;
+  padding-bottom: 0 !important;
+}
+
+.jci-timeline__connector {
+  display: none !important;
+}
+
+.jci-timeline__item {
+  flex: 0 0 90px !important;
+  max-width: 100px !important;
+  gap: 0.55rem !important;
+}
+
+.jci-timeline__icon {
+  width: 58px !important;
+  height: 58px !important;
+}
+
+.jci-timeline__icon svg {
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.jci-timeline__title {
+  font-size: 0.88rem !important;
+}
+
+.jci-timeline__desc {
+  font-size: 0.74rem !important;
+  line-height: 1.38 !important;
+}
+
+/* Info card — row layout, readable */
+.jci-info-card {
+  flex-direction: row !important;
+  gap: 1.1rem !important;
+  padding: 1.4rem 1.25rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.jci-info-card__icon {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.jci-info-card__title {
+  font-size: 1rem !important;
+  margin-bottom: 0.4rem !important;
+}
+
+.jci-info-card__text {
+  font-size: 0.88rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Stat cards — 2×2 */
+.jci-stats {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.8rem !important;
+}
+
+.jci-stat-card {
+  padding: 1.4rem 1rem !important;
+  gap: 0.45rem !important;
+}
+
+.jci-stat-card__icon {
+  width: 44px !important;
+  height: 44px !important;
+}
+
+.jci-stat-card__number {
+  font-size: 1.9rem !important;
+}
+
+.jci-stat-card__label {
+  font-size: 0.8rem !important;
+}
+
+@media screen and (max-width: 420px) {
+  .jci-info-card {
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   10. PUBLIC SPEAKING — IMAGE + TEXT SIDE BY SIDE
+   Current broken: image full-width → tag → huge heading → text
+   Fixed: 2-col hero block, 2-col gallery
+---------------------------------------------------------------- */
+/* REPLACE speaking-hero block */
+.speaking-hero {
+  grid-template-columns: 1fr !important;
+  gap: 1.5rem !important;
+  margin: 1.5rem auto 2rem !important;
+}
+
+.speaking-image {
+  padding: 10px !important;
+  border-radius: 20px !important;
+  max-width: 420px !important;
+  margin: 0 auto !important;
+}
+
+.speaking-hero__image {
+  height: 260px !important;
+  border-radius: 14px !important;
+  object-fit: cover !important;
+  width: 100% !important;
+}
+
+.feature-tag {
+  font-size: 0.75rem !important;
+  padding: 0.28rem 0.85rem !important;
+  margin-bottom: 0.65rem !important;
+  display: inline-block !important;
+}
+
+.speaking-hero__content h3 {
+  font-size: 1.5rem !important;
+  line-height: 1.25 !important;
+  max-width: 100% !important;
+  text-align: left !important;
+  margin-bottom: 0.65rem !important;
+}
+
+.speaking-hero__content p {
+  font-size: 0.94rem !important;
+  line-height: 1.72 !important;
+  text-align: left !important;
+}
+
+.gallery-heading {
+  font-size: 1.55rem !important;
+  margin-top: 2.25rem !important;
+}
+
+.gallery-subtitle {
+  font-size: 0.92rem !important;
+}
+
+/* Gallery 2-column with properly sized images */
+.speaking-gallery {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.75rem !important;
+  margin-top: 1.25rem !important;
+}
+
+.speaking-gallery img {
+  height: 180px !important;
+  border-radius: 10px !important;
+}
+
+.gallery-item {
+  display: block !important;
+  border-radius: 9px !important;
+  overflow: hidden !important;
+  font-size: 0.75rem !important;
+}
+
+.gallery-item span {
+  display: block !important;
+  text-align: center !important;
+  padding: 0.3rem 0 !important;
+  font-size: 0.75rem !important;
+}
+
+@media screen and (max-width: 440px) {
+  .speaking-hero {
+    grid-template-columns: 1fr !important;
+    gap: 1.1rem !important;
+  }
+
+  .speaking-hero__content h3 {
+    font-size: 1.15rem !important;
+  }
+
+  .speaking-hero__image {
+    height: 210px !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   11. EVENT GALLERY — 2-COL MASONRY, ELEGANT SIZING
+   Current broken: 1 column, images huge
+   Fixed: 2-column, tall items keep span-2 for composition
+---------------------------------------------------------------- */
+/* Remove the masonry span entirely on mobile — flat uniform grid */
+.eg-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-auto-rows: 185px !important;
+  gap: 0.65rem !important;
+}
+
+/* Kill the tall span — this is what causes the blank gaps */
+.eg-item--tall {
+  grid-row: span 1 !important;
+}
+
+.eg-item {
+  border-radius: 10px !important;
+}
+
+/* All images fill their cell perfectly */
+.eg-grid .eg-item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* ----------------------------------------------------------------
+   12. ACCOLADES — 2×2 GRID
+   Current broken: single column, gigantic cards
+   Fixed: 2 per row, compact
+---------------------------------------------------------------- */
+/* REPLACE accolades-grid block */
+.accolades-grid {
+  grid-template-columns: 1fr !important;
+  gap: 0.85rem !important;
+}
+
+.accolade-card {
+  display: grid !important;
+  grid-template-columns: 52px 1fr !important;
+  grid-template-rows: auto auto auto !important;
+  column-gap: 1rem !important;
+  row-gap: 0 !important;
+  padding: 1.35rem 1.25rem !important;
+  border-radius: 14px !important;
+  align-items: start !important;
+}
+
+.accolade-card__icon {
+  grid-column: 1 !important;
+  grid-row: 1 / 4 !important;
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 12px !important;
+  margin-bottom: 0 !important;
+  align-self: center !important;
+}
+
+.accolade-card__tag {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  font-size: 0.7rem !important;
+  margin-bottom: 0.3rem !important;
+  display: inline-block !important;
+  width: fit-content !important;
+}
+
+.accolade-card__title {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  font-size: 1rem !important;
+  margin-bottom: 0.3rem !important;
+  line-height: 1.3 !important;
+}
+
+.accolade-card__text {
+  grid-column: 2 !important;
+  grid-row: 3 !important;
+  font-size: 0.85rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Single column only below 360px */
+@media screen and (max-width: 360px) {
+  .accolades-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+.milestones {
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 0.6rem !important;
+}
+
+.milestone {
+  padding: 1.1rem 0.5rem 1rem !important;
+  border-radius: 12px !important;
+}
+
+.milestone__icon {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.milestone__number {
+  font-size: 1.5rem !important;
+}
+
+.milestone__label {
+  font-size: 0.72rem !important;
+}
+
+@media screen and (max-width: 400px) {
+  .milestones {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .accolade-card {
+    grid-template-columns: 44px 1fr !important;
+  }
+  .accolade-card__icon {
+    width: 44px !important;
+    height: 44px !important;
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   13. CERTIFICATES — 2 PER ROW
+   Current broken: single column, each certificate enormous
+   Fixed: 2 per row, landscape aspect
+---------------------------------------------------------------- */
+.certificates {
+  padding-top: 2.75rem !important;
+  padding-bottom: 2.75rem !important;
+}
+
+.certificate-grid.photo-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.75rem !important;
+}
+
+.certificate-card.photo-card {
+  aspect-ratio: 4 / 3 !important;
+  border-radius: 10px !important;
+}
+
+/* ----------------------------------------------------------------
+   14. SUCCESS STORIES TABS
+   
+   TWO PROBLEMS:
+   a) Tab bar wraps — only first tab visible
+   b) Reviews are single column, photo grids single column
+   
+   FIXES:
+   a) Tabs: horizontal scrolling single row
+   b) Reviews: 2-col (or 1-col only at very small)
+   c) Photo grids: 2-col
+   d) Media grid: 3-col (newspaper clippings need to be smaller)
+---------------------------------------------------------------- */
+
+/* ---- ACCORDION: mobile only ---- */
+
+/* Hide desktop tab bar */
+.ss-tabs {
+  display: none !important;
+}
+
+/* Show all panels stacked */
+.ss-panel,
+.ss-panel[hidden] {
+  display: block !important;
+}
+
+/* Accordion button — visible on mobile */
+.ss-accordion-btn {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  width: 100% !important;
+  padding: 1.1rem 1.15rem !important;
+  background: var(--color-white) !important;
+  border: 1.5px solid var(--color-grey-mid) !important;
+  border-radius: 12px !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: var(--color-blue) !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  transition: border-color 0.22s ease, background 0.22s ease !important;
+}
+
+.ss-accordion-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+  flex-shrink: 0 !important;
+  stroke: var(--color-teal-dark) !important;
+}
+
+.ss-accordion-chevron {
+  margin-left: auto !important;
+  font-size: 1.15rem !important;
+  color: var(--color-text-muted) !important;
+  transition: transform 0.25s ease !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+
+/* Content hidden by default */
+.ss-accordion-content {
+  display: none !important;
+  padding-top: 1rem !important;
+}
+
+/* Open state */
+.ss-panel.accordion-open .ss-accordion-btn {
+  background: var(--color-teal-light) !important;
+  border-color: var(--color-teal) !important;
+  border-radius: 12px 12px 0 0 !important;
+  color: var(--color-teal-dark) !important;
+}
+
+.ss-panel.accordion-open .ss-accordion-chevron {
+  transform: rotate(180deg) !important;
+}
+
+.ss-panel.accordion-open .ss-accordion-content {
+  display: block !important;
+  border: 1.5px solid var(--color-teal) !important;
+  border-top: none !important;
+  border-radius: 0 0 12px 12px !important;
+  padding: 1.25rem 1rem !important;
+  animation: accordionSlideIn 0.28s ease !important;
+}
+
+@keyframes accordionSlideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Gap between accordion items */
+.ss-panel + .ss-panel {
+  margin-top: 0.65rem !important;
+}
+
+/* Content grids inside accordion */
+.ss-accordion-content .reviews-grid {
+  grid-template-columns: 1fr !important;
+  gap: 0.85rem !important;
+}
+
+.ss-accordion-content .photo-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.65rem !important;
+}
+
+.ss-accordion-content .photo-card {
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 9px !important;
+}
+
+.ss-accordion-content .photo-grid--media {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.7rem !important;
+}
+
+.ss-accordion-content .photo-card--media {
+  aspect-ratio: 3 / 4 !important;
+  border-radius: 9px !important;
+}
+
+.success-stories .section-head {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Review cards: single column, full readable width */
+.reviews-grid {
+  grid-template-columns: 1fr !important;
+  gap: 0.9rem !important;
+}
+
+.review-card {
+  padding: 1.35rem 1.2rem !important;
+  border-radius: 14px !important;
+}
+
+.review-card__stars {
+  font-size: 1rem !important;
+}
+
+.review-card__text {
+  font-size: 0.92rem !important;
+  line-height: 1.65 !important;
+}
+
+.review-card__name {
+  font-size: 0.88rem !important;
+}
+
+.review-card__location {
+  font-size: 0.7rem !important;
+}
+
+/* Photo grids: 2-column, square thumbnails */
+.photo-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.65rem !important;
+}
+
+.photo-card {
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 10px !important;
+}
+
+/* Media/newspaper: 2-column portrait */
+.photo-grid--media {
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 0.7rem !important;
+}
+
+.photo-card--media {
+  aspect-ratio: 3 / 4 !important;
+  border-radius: 10px !important;
+}
+
+
+
+
+@media screen and (max-width: 460px) {
+  .reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+.success-stories {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+/* ----------------------------------------------------------------
+   15. CTA SECTION — compact, impactful
+---------------------------------------------------------------- */
+.cta__inner {
+  max-width: 100% !important;
+  padding: 0 0.25rem !important;
+}
+
+.cta__title {
+  font-size: 1.65rem !important;
+  line-height: 1.22 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.cta__text {
+  font-size: 0.94rem !important;
+  line-height: 1.72 !important;
+  margin-bottom: 1.5rem !important;
+  opacity: 0.94 !important;
+}
+
+.cta .btn--light {
+  padding: 0.85rem 2rem !important;
+  font-size: 0.95rem !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* ----------------------------------------------------------------
+   16. CONTACT — TWO-COLUMN PRESERVED
+   Current broken: info stacked → WhatsApp card below → huge scroll
+   Fixed: info left, WhatsApp right — same as desktop
+---------------------------------------------------------------- */
+/* REPLACE contact__inner block */
+.contact__inner {
+  grid-template-columns: 1fr !important;
+  gap: 2rem !important;
+}
+
+.contact__list {
+  margin: 1.25rem 0 !important;
+  gap: 1rem !important;
+}
+
+.contact__item {
+  gap: 0.75rem !important;
+}
+
+.contact__icon {
+  width: 42px !important;
+  height: 42px !important;
+}
+
+.contact__icon svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.contact__label {
+  font-size: 0.7rem !important;
+}
+
+.contact__value {
+  font-size: 0.95rem !important;
+}
+
+
+.contact__social {
+  margin-top: 1rem !important;
+}
+
+.social-icons {
+  gap: 0.6rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.social-icon {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.social-icon svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.contact__whatsapp {
+  padding: 1.75rem 1.5rem !important;
+  border-radius: 18px !important;
+  gap: 0.75rem !important;
+  min-height: auto !important;
+}
+
+.contact__whatsapp .eyebrow {
+  margin-bottom: 0 !important;
+}
+
+.contact__whatsapp h3 {
+  font-size: 1.4rem !important;
+}
+
+.contact__whatsapp p {
+  font-size: 0.92rem !important;
+  line-height: 1.7 !important;
+}
+
+.contact__whatsapp .btn {
+  font-size: 0.92rem !important;
+  padding: 0.8rem 1.25rem !important;
+  width: 100% !important;
+}
+
+/* Stack contact below 460px */
+@media screen and (max-width: 460px) {
+  .contact__inner {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .contact__whatsapp {
+    padding: 1.35rem 1.1rem !important;
+  }
+}
+
+/* ----------------------------------------------------------------
+   17. FOOTER — 2-COLUMN, NOT SINGLE COLUMN
+   Current broken: 1 column, everything centred
+   Fixed: brand left, links right, social inline with brand
+---------------------------------------------------------------- */
+.footer {
+  padding-top: 2rem !important;
+}
+
+/* REPLACE footer__inner block */
+.footer__inner {
+  grid-template-columns: 1.3fr 1fr !important;
+  gap: 1.5rem !important;
+  padding-bottom: 1.75rem !important;
+}
+
+.footer__brand {
+  grid-column: auto !important;
+}
+
+.footer__logo {
+  font-size: 1.1rem !important;
+}
+
+.footer__tagline {
+  font-size: 0.84rem !important;
+  margin-top: 0.6rem !important;
+  max-width: 100% !important;
+  line-height: 1.6 !important;
+}
+
+.footer__heading {
+  font-size: 0.88rem !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.footer__links ul {
+  gap: 0.5rem !important;
+  align-items: flex-start !important;
+}
+
+.footer__links a {
+  font-size: 0.84rem !important;
+}
+
+.footer__social .social-icons {
+  justify-content: flex-start !important;
+  margin-top: 0.5rem !important;
+}
+
+.footer__social .social-icon {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.footer__bottom {
+  font-size: 0.76rem !important;
+  padding: 0.9rem 0 !important;
+}
+
+@media screen and (max-width: 420px) {
+  .footer__inner {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 1.5rem !important;
+  }
+  .footer__links ul { align-items: center !important; }
+  .footer__social .social-icons { justify-content: center !important; }
+}
+
+/* ----------------------------------------------------------------
+   18. LIGHTBOX — finger-friendly, full coverage
+---------------------------------------------------------------- */
+.lightbox {
+  padding: 1rem 0.5rem !important;
+}
+
+.lightbox__stage {
+  max-width: 96vw !important;
+  max-height: 82vh !important;
+}
+
+.lightbox__img {
+  max-height: 76vh !important;
+  border-radius: 6px !important;
+}
+
+.lightbox__nav {
+  width: 42px !important;
+  height: 42px !important;
+}
+
+.lightbox__nav--prev { left: 0.4rem !important; }
+.lightbox__nav--next { right: 0.4rem !important; }
+
+.lightbox__close {
+  top: 0.75rem !important;
+  right: 0.75rem !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.lightbox__counter {
+  bottom: 0.85rem !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.05em !important;
+}
+
+.lightbox__nav svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+
+/* ----------------------------------------------------------------
+   19. BACK TO TOP & SCROLL PROGRESS
+---------------------------------------------------------------- */
+.scroll-progress {
+  height: 2.5px !important;
+}
+
+.back-to-top {
+  width: 44px !important;
+  height: 44px !important;
+  bottom: 22px !important;
+  right: 16px !important;
+  box-shadow: 0 4px 16px rgba(27, 58, 92, 0.22) !important;
+}
+
+.back-to-top svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* ----------------------------------------------------------------
+   20. DISABLE HOVER TRANSFORMS ON TOUCH
+   Hover states stick on mobile — remove them all
+---------------------------------------------------------------- */
+@media (hover: none) {
+  .service-card:hover,
+  .why-item:hover,
+  .milestone:hover,
+  .review-card:hover,
+  .photo-card:hover,
+  .accolade-card:hover,
+  .jci-stat-card:hover,
+  .eg-item:hover,
+  .social-icon:hover,
+  .btn--primary:hover,
+  .btn--outline:hover,
+  .btn--light:hover,
+  .footer__links a:hover,
+  .mobile-link:hover,
+  .jci-timeline__item:hover .jci-timeline__icon,
+  .about__image-frame:hover .about__image {
+    transform: none !important;
+    box-shadow: var(--shadow-soft) !important;
+    border-color: var(--color-grey-mid) !important;
+    color: inherit !important;
+    padding-left: 0 !important;
+    background: inherit !important;
+  }
+}
+
+/* Replace hover lift with active press feedback — feels native */
+@media (hover: none) {
+  .btn:active {
+    transform: scale(0.97) !important;
+    opacity: 0.9 !important;
+    transition: transform 0.1s ease, opacity 0.1s ease !important;
+  }
+
+  .photo-card:active,
+  .eg-item:active,
+  .service-card:active,
+  .accolade-card:active {
+    opacity: 0.82 !important;
+    transition: opacity 0.12s ease !important;
+  }
+}
+
+
+.mobile-menu {
+  padding: 1rem 1.25rem 1.5rem !important;
+}
+
+.mobile-link {
+  font-size: 1rem !important;
+  padding: 0.65rem 0 !important;
+  display: block !important;
+}
+
+.mobile-menu__cta {
+  margin-top: 0.25rem !important;
+  font-size: 0.92rem !important;
+  padding: 0.8rem 1.5rem !important;
+}
+
+.container {
+  padding-left: 1.1rem !important;
+  padding-right: 1.1rem !important;
+}
+
+@media screen and (max-width: 380px) {
+  .container {
+    padding-left: 0.9rem !important;
+    padding-right: 0.9rem !important;
+  }
+}
